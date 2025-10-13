@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XIAOMIAUS | Smile & Design</title>
+  <title>澳洲笑谜网 · XIAOMIAUS | Smile & Riddle</title>
   <style>
     body {
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background-color: #fdfcfb;
+      font-family: "PingFang SC","Noto Sans CJK","Helvetica Neue",Arial,sans-serif;
+      background-color: #fffefc;
       color: #333;
       display: flex;
       flex-direction: column;
@@ -17,83 +17,180 @@
       margin: 0;
       padding: 40px 20px;
     }
-    h1 {
-      font-size: 2.5em;
-      color: #222;
-      margin-bottom: 10px;
+    h1 { font-size: 2.4em; color: #222; margin-bottom: 8px; text-align: center; }
+    h2 { font-size: 1.3em; color: #666; font-weight: 400; margin-top: 0; text-align: center; }
+    h3 {
+      color: #0077cc; margin-top: 40px; border-bottom: 2px solid #0077cc33;
+      padding-bottom: 6px; width: 100%; max-width: 680px;
     }
-    h2 {
-      font-size: 1.4em;
-      color: #666;
-      font-weight: 400;
-      margin-top: 0;
+    p { max-width: 720px; line-height: 1.8; font-size: 1.05em; margin: 10px auto; text-align: left; }
+    .eng { color: #777; font-size: 0.9em; font-style: italic; margin-bottom: 12px; }
+    .joke, .riddle {
+      background: #f7faff; border-left: 4px solid #0077cc; border-radius: 6px;
+      padding: 10px 14px; margin: 12px 0;
     }
-    p {
-      max-width: 720px;
-      text-align: center;
-      line-height: 1.7;
-      font-size: 1.05em;
-      margin-bottom: 1.2em;
+    .btns { margin: 12px 0 6px; display:flex; gap:10px; flex-wrap:wrap; }
+    button {
+      background:#0077cc; color:#fff; border:none; border-radius:6px; padding:10px 14px;
+      font-weight:700; cursor:pointer; transition: background .2s;
     }
-    a {
-      color: #0077cc;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      color: #777;
-      text-align: center;
-    }
-    .button {
-      background: #0077cc;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-    .button:hover {
-      background: #005fa3;
-    }
+    button:hover { background:#005fa3; }
+    .hint { color:#888; font-size:.92em; margin-top:6px; }
+    footer { margin-top: 60px; font-size: 0.9em; color: #777; text-align: center; }
+    .sep { height:8px; }
   </style>
 </head>
 <body>
-  <h1>Welcome to XIAOMIAUS</h1>
-  <h2>Smile · Design · Simplicity</h2>
+  <h1>澳洲笑谜网 · XIAOMIAUS</h1>
+  <h2>笑一笑 · 猜一猜 · 心情妙</h2>
 
   <p>
-    The name “Xiaomi” here is inspired by the Chinese expression <b>“笑眯眯” (xiao mimi)</b>,  
-    which describes a person smiling warmly and kindly.  
-    It represents friendliness, positivity, and a sense of calm simplicity —  
-    values we believe can shape better design and better living.
+    “XIAOMI” 在这里取意为 <b>笑谜</b>，来自中文“笑话 + 谜语”。我们希望用一点幽默和一点思考，让每一次访问都多一点微笑。
+  </p>
+  <p class="eng">
+    “XIAOMI” here means <b>“Smile & Riddle”</b> — blending fun and wit. A place to laugh, think, and relax.
   </p>
 
-  <p>
-    XIAOMIAUS is a concept space built around the idea of 
-    <b>“small beauty and big warmth”</b> — embracing minimal design, creativity, and mindful living.  
-    It’s about enjoying the small details that make life feel balanced and meaningful.
+  <!-- 固定展示的5条（示例） -->
+  <h3>😄 五个短笑话 | Five Short Jokes</h3>
+  <div id="fixedJokes">
+    <div class="joke">1️⃣ 老师：为什么你上课老走神？ 学生：因为我脑子太轻，一点风就吹跑思路。</div>
+    <div class="joke">2️⃣ 男孩对女孩说：“我想给你全世界。” 女孩说：“那你先去存款吧。”</div>
+    <div class="joke">3️⃣ 面包和馒头吵架，馒头输了——因为他蒸不过面包。</div>
+    <div class="joke">4️⃣ 猫为什么总是摔不死？因为它们有九条命和超好的网络信号。</div>
+    <div class="joke">5️⃣ 朋友问：“你知道懒人最高境界是什么吗？” 我说：“知道，但我懒得说。”</div>
+  </div>
+
+  <div class="btns">
+    <button id="btnJokes">🎲 随机笑话 ×5  / Random 5 Jokes</button>
+  </div>
+  <div id="randomJokes"></div>
+  <div class="hint eng">Click the button to get 5 random short jokes.</div>
+
+  <div class="sep"></div>
+
+  <h3>🧩 五个小谜语 | Five Little Riddles</h3>
+  <div id="fixedRiddles">
+    <div class="riddle">1️⃣ 一面镜子，没嘴会说话，没脚能走路。（打一物）</div>
+    <div class="riddle">2️⃣ 身穿青衣，肚里水，生在泥里不怕水。（打一植物）</div>
+    <div class="riddle">3️⃣ 有脚不会走，有眼不会看，天天在墙上。（打一物）</div>
+    <div class="riddle">4️⃣ 一物生得奇，腰细尾巴长，夜里爱捉贼。（打一动物）</div>
+    <div class="riddle">5️⃣ 一口咬掉半个月亮。（打一食物）</div>
+  </div>
+
+  <div class="btns">
+    <button id="btnRiddles">🎯 随机谜语 ×5  / Random 5 Riddles</button>
+  </div>
+  <div id="randomRiddles"></div>
+  <div class="hint eng">Click the button to get 5 random riddles (no answers shown).</div>
+
+  <p style="margin-top:30px;font-weight:bold;color:#444;">
+    更多笑话与谜语即将上线，敬请期待！<br>
+    <span class="eng">More jokes and riddles are coming soon. Stay tuned!</span>
   </p>
 
-  <p>
-    This domain name may be available for collaboration or acquisition.  
-    For inquiries, please visit  
-    <a href="https://dan.com/buy-domain/xiaomiaus.com" target="_blank" class="button">
-      Inquire via Dan.com
-    </a>
-  </p>
-
-  <p style="font-size:0.95em;color:#888;margin-top:20px;">
-    Not affiliated with, sponsored by, or endorsed by any technology company.  
-    All trademarks remain the property of their respective owners.
+  <p style="margin-top:30px;">
+    联系 / Contact：<a href="mailto:xu456xu@gmail.com">xu456xu@gmail.com</a>
   </p>
 
   <footer>
-    © 2025 XIAOMIAUS · All rights reserved · Smile & Design
+    © XIAOMIAUS.com · Smile & Riddle · Made with laughter in Australia
   </footer>
+
+  <script>
+    // 30条笑话（短句、健康向）
+    const JOKES = [
+      "老师：为什么你上课老走神？ 学生：因为我脑子太轻，一点风就吹跑思路。",
+      "男孩对女孩说：“我想给你全世界。” 女孩说：“那你先去存款吧。”",
+      "面包和馒头吵架，馒头输了——因为他蒸不过面包。",
+      "猫为什么总是摔不死？因为它们有九条命和超好的网络信号。",
+      "朋友问：“你知道懒人最高境界是什么吗？” 我说：“知道，但我懒得说。”",
+      "我减肥成功秘诀：体重秤没电。",
+      "闹钟每天叫醒我两次：一次是铃声，一次是心碎。",
+      "朋友说我方向感差，我左耳进右耳出找不到路。",
+      "面试官：你的优点？我：会报喜不报忧。面试官：缺点？我：上一个问题已经回答了。",
+      "天气太热了，手机都提示“别碰我，我们都冷静一下”。",
+      "我不是熬夜，是和明天抢时间。",
+      "今天学会理财了，把外卖从大份改成小份两份。",
+      "健身教练说要多喝水，于是我点了汤。",
+      "老板问我为什么迟到，我说路上堵梦想了。",
+      "我电脑太旧，保存文件要先安抚它情绪。",
+      "我不拖延，我在给灵感热身。",
+      "同事说你眼袋好大，我说那是人生经验。",
+      "开会开久了，我的灵魂开始举手发言了。",
+      "我手机内存满了，友情提示我清理不必要的人。",
+      "我不是没钱，是把钱存成了回忆。",
+      "外卖小哥问“上下哪层？”我说“上层建筑”。",
+      "朋友失恋了让我安慰，我说“至少少发一个红包”。",
+      "我的理想型：能替我早起的人。",
+      "天气预报说今天有风，我决定顺风上班。",
+      "我不是爱吃，是尊重食物的努力。",
+      "医生说要多走路，我把计步器绑在猫身上。",
+      "我想做一个安静的美男子，但空调太吵。",
+      "朋友问我为什么不减肥，我说怕变帅引发社会问题。",
+      "公司发电邮说“家人们”，我爸以为我升职了。",
+      "我钱包跟我感情稳定：一直很冷淡。"
+    ];
+
+    // 30条谜语（不含答案）
+    const RIDDLES = [
+      "一面镜子，没嘴会说话，没脚能走路。（打一物）",
+      "身穿青衣，肚里水，生在泥里不怕水。（打一植物）",
+      "有脚不会走，有眼不会看，天天在墙上。（打一物）",
+      "一物生得奇，腰细尾巴长，夜里爱捉贼。（打一动物）",
+      "一口咬掉半个月亮。（打一食物）",
+      "早上四只脚，中午两只脚，晚上三只脚。（打一谜）",
+      "身穿彩衣，雨后出来，桥却不能走。（打一自然现象）",
+      "没风也能飞，无翅也能飘，越晒越不见。（打一自然现象）",
+      "不是钟表却有指针，不是花朵却会开。（打一自然物）",
+      "身上百把锁，人人都爱它。（打一人体）",
+      "一物圆又圆，白天躲云间，晚上一露面，潮水把家搬。（打一天体）",
+      "身穿铁甲不出门，遇火开口把饭吞。（打一日用物）",
+      "一队兄弟排得齐，个个头上戴白皮。（打一食材）",
+      "不是鱼在水里游，却把船儿来牵走。（打一自然力）",
+      "有眼看不见，有牙却不咬，天天帮你开门道。（打一工具）",
+      "生在山中不会走，离开山门水里游。（打一矿物）",
+      "一物像伞不开花，晴天收起雨天挂。（打一日用物）",
+      "身穿黄衣地里站，风吹笑弯金色脸。（打一农作物）",
+      "身材细长爱钻地，遇到大雨最欢喜。（打一动物）",
+      "有面没有口，有脚没有手，虽有四只脚，自己不会走。（打一家具）",
+      "人有他大，天没他大。（打一字）",
+      "上不怕水，下不怕火；中间怕风，一吹就破。（打一生活物）",
+      "两姐妹，一样长，走起路来嘣嘣响。（打一人体部位）",
+      "一条小船两头尖，天天江中来回钻。（打一人体器官）",
+      "不用语言会讲话，不用翅膀会飞翔。（打一传播物）",
+      "一座城市一根心，千条线儿连四邻。（打一设施）",
+      "千条线，万条线，落到水里看不见。（打一自然现象）",
+      "身穿绿衣心如蜜，生在南方挂树上。（打一水果）",
+      "没脚会走路，没手会写字，白天不见夜里出。（打一自然现象）",
+      "有时像山有时圆，十五最圆十六偏。（打一天文）"
+    ];
+
+    function pickN(arr, n) {
+      const used = new Set();
+      const out = [];
+      while (out.length < n && used.size < arr.length) {
+        const i = Math.floor(Math.random() * arr.length);
+        if (!used.has(i)) { used.add(i); out.push(arr[i]); }
+      }
+      return out;
+    }
+
+    function renderList(arr, mountId, cls) {
+      const html = arr.map((t, i) => `<div class="${cls}">${i+1}️⃣ ${t}</div>`).join("");
+      document.getElementById(mountId).innerHTML = html;
+    }
+
+    document.getElementById("btnJokes").addEventListener("click", () => {
+      const five = pickN(JOKES, 5);
+      renderList(five, "randomJokes", "joke");
+    });
+
+    document.getElementById("btnRiddles").addEventListener("click", () => {
+      const five = pickN(RIDDLES, 5);
+      renderList(five, "randomRiddles", "riddle");
+    });
+  </script>
 </body>
 </html>
+
